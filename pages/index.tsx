@@ -6,6 +6,9 @@ import Row from "../components/Row";
 import { Movie } from "../typings";
 import requests from "../utilities/requests";
 import useAuth from "../hooks/useAuth";
+import { useRecoilValue } from "recoil";
+import { modalState } from "../atoms/modalAtom";
+import Modal from "../components/Modal";
 
 interface Props {
 	netflixOriginals: Movie[];
@@ -31,6 +34,8 @@ const Home = ({
 	const { loading } = useAuth();
 	if (loading) return null; //todo: implement loading screen / spinner?
 
+	const showModal = useRecoilValue(modalState);
+
 	return (
 		<div className='relative h-screen bg-gradient-to-b lg:h-[140vh]'>
 			<Head>
@@ -54,7 +59,7 @@ const Home = ({
 				</section>
 			</main>
 
-			{/* Modal */}
+			{showModal && <Modal />}
 		</div>
 	);
 };
